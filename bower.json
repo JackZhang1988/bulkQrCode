@@ -1,0 +1,21 @@
+{
+  "name": "qrCode",
+  "version": "0.0.0",
+  "authors": [
+    "jianbo.zhang <jackz001@yeah.net>"
+  ],
+  "description": "qunar hotel qrcode",
+  "moduleType": [
+    "globals"
+  ],
+  "dependencies":{
+	"jquery":"*",
+	"jquery.qrcode":"*",
+	"js-xls":"*"
+  },
+  "keywords": [
+    "quanr",
+    "qrcode"
+  ],
+  "license": "MIT"
+}
