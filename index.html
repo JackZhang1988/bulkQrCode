@@ -31,13 +31,13 @@
 	<script src="bower_components/jquery.qrcode/dist/jquery.qrcode.js"></script>
 	<script src="bower_components/js-xls/dist/xls.js"></script>
 	<script type="text/javascript">
-		function createQrEle(classOrder){
+		function createQrEle(classIndex){
 			var qrEle=document.createElement('div');
-			qrEle.className='qrCode'+classOrder+" qrCode";
+			qrEle.className='qrCode'+classIndex+" qrCode";
 			$('#result').append(qrEle);
 		}
-		function renderQr(ele,ops){
-			$(ele).qrcode(ops);
+		function renderQr(selector,ops){
+			$(selector).qrcode(ops);
 		}
 
 
@@ -47,48 +47,27 @@
 			reader.readAsBinaryString(evt.target.files[0]);
 			reader.onload=function(e){
 				var wb = XLS.read(e.target.result,{type:'binary'});
-				var qrInfoList=[];
-				console.log(wb.Sheets.Sheet1);
 				// revert to qrcode obj info
 				var columnLength=wb.Sheets.Sheet1['!range'].e.c;
-				var rowLength=wb.Sheets.Sheet1['!range'].e.r;
 				var allExcelData=wb.Sheets.Sheet1;
-				var qrParaData=[];
-				// for(var v in allExcelData){
-				// 	if(allExcelData.hasOwnProperty(v)){
-				// 		qrParaData.push(allExcelData[v].v);
-				// 	}
-				// }
-				// console.log(qrParaData);
-				// var qrData=qrParaData.slice(2,qrParaData.length-2);
-				// var qrParaData=wb.Strings.slice(0,columnLength);
 
-				// for(var i=0,j=qrData.length;i<j;){
-				// 	var d={};
-				// 	for(var n=0;n<columnLength;n++){
-				// 		d[qrParaData[n].t]=typeof qrData[i] === "undefined" ? "":qrData[i];
-				// 		i++;
-				// 	}
-				// 	qrInfoList.push(d);
-				// }
-				// console.log(qrInfoList);
-				// createQrFromList(qrInfoList);
-				var temp=[],i=0,j=0,result=[],tempObj={};
+				var temp=[],i=0,result=[],tempObj={};
+				var tempJ=0;
 				for(data in allExcelData){
 					if(i<columnLength){
 						temp.push(allExcelData[data].v);
 						i++;
 						continue;
 					}
-					if(j<columnLength){
-						tempObj[temp[j++]]=allExcelData[data].v;
-					}else{
+					tempObj[temp[tempJ++]]=allExcelData[data].v;
+					if(tempJ>=columnLength){
 						result.push(tempObj);
 						tempObj={};
-						j=0;
+						tempJ=0;
 					}
 				}
-				console.log(result);
+				// console.log(result);
+				renderQrList(result);
 			}
 		}
 		var qrDefalut={
@@ -98,8 +77,8 @@
 			mSize:0.05,
 			size:250,
 			}
-		function createQrFromList(qrl){
-			qrl.forEach(function(value,index){
+		function renderQrList(qrl){
+			$.each(qrl,function(index,value){
 				createQrEle(index);
 				renderQr(".qrCode"+index,$.extend(qrDefalut,value));
 			})
