@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>二维码批量生成工具</title>
 </head>
-
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="src/main.css">
 <body>
-	<div id="wrapper">
-		<div class="tempInput">
-			<input type="file" accept=".xls" id="qrListInput">
-			<button onclick="javascript:print()">打印</button>
-		</div>
-		<div class="guider">
-			<blockquote>
-			</blockquote>
-		</div>
-		<div id="result">	
-		</div>
+	<div class="doc-header-wrapper">
+		  <h1>二维码批量生成工具</h1>
+		  <p>一次导入Excel模板，批量生成不同二维码</p>
+		  <span class="btn btn-success btn-file">
+		  	立刻导入Excel模板
+		  	<input type="file" accept=".xls" id="qrListInput">
+		  </span>
 	</div>
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/jquery.qrcode/dist/jquery.qrcode.js"></script>
-	<script src="bower_components/js-xls/dist/xls.js"></script>
+	<div id="result">	
+	</div>
+	</div>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+	<script src="bower_components/jquery.qrcode/dist/jquery.qrcode.min.js"></script>
+	<script src="bower_components/js-xls/dist/xls.min.js"></script>
 	<script src="src/main.js"></script>
 </body>
 </html>
