@@ -1,28 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>二维码批量生成工具</title>
+    <meta charset="UTF-8">
+    <title>二维码批量生成工具</title>
 </head>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="bower_components/highlightjs/styles/default.css">
 <link rel="stylesheet" href="src/main.css">
+<script src="bower_components/highlightjs/highlight.pack.js"></script>
 <body>
-	<div class="doc-header-wrapper">
-		  <h1>二维码批量生成工具</h1>
-		  <p>一次导入Excel模板，批量生成不同二维码</p>
-		  <span class="btn btn-success btn-file">
-		  	立刻导入Excel模板
-		  	<input type="file" accept=".xls" id="qrListInput">
-		  </span>
-	</div>
-	<div id="result">	
-	</div>
-	</div>
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
-	<script src="bower_components/jquery.qrcode/dist/jquery.qrcode.min.js"></script>
-	<script src="bower_components/js-xls/dist/xls.min.js"></script>
-	<script src="src/main.js"></script>
+<div class="wrapper">
+  <div class="intro">
+      <div class="doc-header-wrapper">
+          <img src="static/doc-header-img.png" alt="" class="doc-header-img">
+          <h1>二维码批量生成工具</h1>
+          <p>配置Excel模板参数，批量生成不同二维码</p>
+          <span class="btn btn-success btn-file">
+              导入Excel模板
+              <input type="file" accept=".xls" id="qrListInput">
+          </span>
+          <a class="btn btn-info" href="#instruct">查看模板参数说明</a>
+      </div>
+      <div class="instruct" id="instruct">
+          <h2>Excel模板参数说明：</h2>
+          <span class="label label-danger f16">参数必须放在Excel文件第一行，并且保证拼写正确！</span>
+          <pre class="mt15">
+            <code class="json">
+            {
+                // render method: 'canvas', 'image' or 'div'
+                render: 'canvas',
+  
+                // version range somewhere in 1 .. 40
+                minVersion: 1,
+                maxVersion: 40,
+  
+                // error correction level: 'L', 'M', 'Q' or 'H'
+                ecLevel: 'L',
+  
+                // offset in pixel if drawn onto existing canvas
+                left: 0,
+                top: 0,
+  
+                // size in pixel
+                size: 200,
+  
+                // code color or image element
+                fill: '#000',
+  
+                // background color or image element, null for transparent background
+                background: null,
+  
+                // content
+                text: 'no text',
+  
+                // corner radius relative to module width: 0.0 .. 0.5
+                radius: 0,
+  
+                // quiet zone in modules
+                quiet: 0,
+  
+                // modes
+                // 0: normal
+                // 1: label strip
+                // 2: label box
+                // 3: image strip
+                // 4: image box
+                mode: 0,
+  
+                mSize: 0.1,
+                mPosX: 0.5,
+                mPosY: 0.5,
+  
+                label: 'no label',
+                fontname: 'sans',
+                fontcolor: '#000',
+  
+                image: null
+            }
+            </code>
+          </pre>
+      </div>      
+  </div>
+  <div id="result">
+  </div>
+</div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery.qrcode/dist/jquery.qrcode.min.js"></script>
+    <script src="bower_components/js-xls/dist/xls.min.js"></script>
+    <script src="src/main.js"></script>
 </body>
+
 </html>
