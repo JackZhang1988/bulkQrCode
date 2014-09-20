@@ -13,7 +13,8 @@
     "jquery.qrcode": "*",
     "js-xls": "*",
     "highlightjs": "~8.0.0",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "jqueryui": "~1.11.1"
   },
   "keywords": [
     "quanr",

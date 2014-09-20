@@ -1,12 +1,16 @@
-/* common */
-.f16{
+
+body{
+    min-height: 2500px;
+}
+.f16 {
     font-size: 16px;
 }
-.mt15{
+.f18 {
+    font-size: 18px;
+}
+.mt15 {
     margin-top: 15px;
 }
-
-
 .qrCode {
     display: inline-block;
     margin: 20px;
@@ -17,7 +21,7 @@
 .btn-file {
     position: relative;
     overflow: hidden;
-    margin: 10px 20px 10px 60px;
+    margin: 10px 20px 10px 0;
     padding: 15px 20px;
     font-size: 18px;
     font-weight: bolder;
@@ -37,15 +41,20 @@
     cursor: inherit;
     display: block;
 }
+.btn-print{
+    display: none;
+}
+
 .doc-header-img {
     float: right;
     position: relative;
     margin-right: 20px;
     box-shadow: 5px 5px 3px lightgray;
     border-radius: 5px;
+    width: 700px;
 }
 .doc-header-wrapper {
-    padding: 30px 0 10px 30px;
+    padding: 30px 90px 10px 90px;
     font-size: 24px;
     background-color: #6ACD93;
     text-align: left;
@@ -62,4 +71,24 @@
 .instruct {
     margin: 0 auto;
     width: 90%;
+}
+.action{
+    text-align: center;
+}
+.progressbar{
+    width: 60%;
+    margin: 0 auto;
+    display: none;
+}
+.progress-label {
+    position: absolute;
+    left: 45%;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+@media print {
+    .intro {
+        display: none;
+    }
 }

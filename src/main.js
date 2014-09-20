@@ -53,22 +53,44 @@ function handleFileSelect(evt) {
     }
 }
 
-
 function renderQrList(qrl) {
+    $('.progressbar').show();
+    $('.btn-print').hide();
+    $('.btn-file').attr('disabled','disabled')
     $.each(qrl, function(index, value) {
         setTimeout(function() {
+            renderProgressbar(index+1);
             createQrEle(index);
             renderQr(".qrCode" + index, $.extend(qrDefalut, value));
         }, 0)
     })
+
+    function renderProgressbar(curIndex) {
+        // console.log(Math.floor((curIndex / qrlLength)*100 ) +'%');
+        var progressbarLabel = $(".progress-label");
+        var pgValue = Math.floor((curIndex / qrl.length) * 100)+1;
+        $('.progressbar').progressbar({
+            value: pgValue,
+            change: function() {
+                progressbarLabel.text('已完成：' + pgValue + '%');
+            },
+            complete: function() {
+                progressbarLabel.text('二维码生成完成！')
+                $('.btn-print').show();
+                $('.btn-file').removeAttr("disabled");
+            }
+        })
+    }
 }
-function printHandler(){
-	$(".tempInput").hide();
-	print();
-	$(".tempInput").show();
+
+function printHandler() {
+    $(".intro").hide();
+    print();
+    $(".intro").show();
 }
+
 function init() {
-    document.getElementById('qrListInput').addEventListener('change', handleFileSelect, false);
+    $('.qrListInput').on('change',handleFileSelect);
 }
 
 init();

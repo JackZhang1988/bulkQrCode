@@ -3,91 +3,112 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="二维码批量生成工具">
+    <meta name="keyword" content="二维码">
+    <meta name="keyword" content="二维码批量打印">
     <title>二维码批量生成工具</title>
 </head>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="bower_components/highlightjs/styles/default.css">
+<link rel="stylesheet" href="bower_components/jqueryui/themes/ui-lightness/jquery-ui.min.css">
 <link rel="stylesheet" href="src/main.css">
 <script src="bower_components/highlightjs/highlight.pack.js"></script>
+
 <body>
-<div class="wrapper">
-  <div class="intro">
-      <div class="doc-header-wrapper">
-          <img src="static/doc-header-img.png" alt="" class="doc-header-img">
-          <h1>二维码批量生成工具</h1>
-          <p>配置Excel模板参数，批量生成不同二维码</p>
-          <span class="btn btn-success btn-file">
-              导入Excel模板
-              <input type="file" accept=".xls" id="qrListInput">
-          </span>
-          <a class="btn btn-info" href="#instruct">查看模板参数说明</a>
-      </div>
-      <div class="instruct" id="instruct">
-          <h2>Excel模板参数说明：</h2>
-          <span class="label label-danger f16">参数必须放在Excel文件第一行，并且保证拼写正确！</span>
-          <pre class="mt15">
+    <div class="wrapper">
+        <div class="intro">
+            <div class="doc-header-wrapper">
+                <img src="static/intro.jpg" alt="" class="doc-header-img">
+                <h1>二维码批量生成工具</h1>
+                <p>配置Excel模板参数，批量生成不同二维码</p>
+                <div>
+                    <a class="btn btn-info f18" href="#instruct">查看模板参数说明</a>
+                </div>
+                <div>
+                    <span class="btn btn-success btn-file" onclick="javascript:window.scrollTo(0,1600);">
+                        导入Excel模板
+                        <input type="file" accept=".xls" class="qrListInput">
+                    </span>
+                </div>
+            </div>
+            <div class="instruct" id="instruct">
+                <h2>Excel模板参数说明：</h2>
+                <span class="label label-danger f16">参数必须放在Excel文件第一行，并且保证拼写正确！</span>
+                <span class="label label-warning f16">所有参数除text表示二维码表示的内容是必填项外，所以的参数都是可选项</span>
+                <pre class="mt15">
             <code class="json">
             {
-                // render method: 'canvas', 'image' or 'div'
+                // 二维码渲染方式: 'canvas', 'image' or 'div'，默认canvas，如果无特殊要求，选择默认就好
                 render: 'canvas',
   
-                // version range somewhere in 1 .. 40
-                minVersion: 1,
-                maxVersion: 40,
-  
-                // error correction level: 'L', 'M', 'Q' or 'H'
+                // 二维码容错级别（由低到高，如果二维码上要打上logo，建议调高容错级别）: 'L', 'M', 'Q' or 'H'
                 ecLevel: 'L',
   
-                // offset in pixel if drawn onto existing canvas
+                // 与指定画布的偏移量（）
                 left: 0,
                 top: 0,
   
-                // size in pixel
+                // 二维码大小，以像素为单位
                 size: 200,
   
-                // code color or image element
+                // 二维码颜色
                 fill: '#000',
   
-                // background color or image element, null for transparent background
+                // 背景颜色或图像，为空则为透明色
                 background: null,
   
-                // content
+                // 二维码内容，必填项
                 text: 'no text',
   
-                // corner radius relative to module width: 0.0 .. 0.5
+                // 圆角程度，范围是: 0.0 .. 0.5
                 radius: 0,
   
-                // quiet zone in modules
-                quiet: 0,
-  
-                // modes
-                // 0: normal
-                // 1: label strip
-                // 2: label box
-                // 3: image strip
-                // 4: image box
+                // 二维码渲染模式
+                // 0: 普通（默认）
+                // 1: 带标签条的二维码
+                // 2: 带标签块的二维码
+                // 3: 带图片条的二维码
+                // 4: 带图片框的二维码
                 mode: 0,
-  
+                
+                //尺寸基数
                 mSize: 0.1,
                 mPosX: 0.5,
                 mPosY: 0.5,
-  
+                
+                // 二维码上要显示的标签（要设置二维码渲染模式为1或2）
                 label: 'no label',
+                // 字体
                 fontname: 'sans',
+                // 字体颜色
                 fontcolor: '#000',
-  
+                
+                // 二维码图片路径（要设置二维码渲染模式为3或4）
                 image: null
             }
             </code>
           </pre>
-      </div>      
-  </div>
-  <div id="result">
-  </div>
-</div>
+            </div>
+            <div class="action" id="action">
+                <div class="input-excel-temp">
+                    <span class="btn btn-success btn-file">
+                        导入Excel模板
+                        <input type="file" accept=".xls" class="qrListInput">
+                    </span>
+                    <button class="btn btn-default btn-print" onclick="printHandler()">打印二维码</button>
+                </div>
+                <div class="progressbar">
+                    <div class="progress-label">二维码生成中...</div>
+                </div>
+            </div>
+        </div>
+        <div id="result">
+        </div>
+    </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/jqueryui/jquery-ui.min.js"></script>
     <script src="bower_components/jquery.qrcode/dist/jquery.qrcode.min.js"></script>
     <script src="bower_components/js-xls/dist/xls.min.js"></script>
     <script src="src/main.js"></script>
